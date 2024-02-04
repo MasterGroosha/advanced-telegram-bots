@@ -1,0 +1,6 @@
+# Токен бота. Можно взять у https://t.me/BotFather
+bot_token: ""  # Пример: "1234567890:AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRr"
+
+# Адрес подключения к СУБД.
+# Если используете docker-compose.yml из текущего каталога, то можете смело скопировать следующую строку:
+db_url: "postgresql+psycopg://user:password@127.0.0.1/db"

@@ -1,0 +1,13 @@
+version: '2.2'
+
+services:
+  db:
+    image: postgres:16
+    restart: "no"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    volumes:
+      - "/tmp/pg_data:/var/lib/postgresql/data"
+    network_mode: host
