@@ -2,3 +2,6 @@
 /04_Testing/02_Testing_handlers/settings.yml
 /04_Testing/02_Testing_handlers/.pytest_cache
 /.idea
+/04_Testing/03_Testing_FSM/venv/
+/04_Testing/03_Testing_FSM/settings.yml
+/04_Testing/03_Testing_FSM/.pytest_cache
