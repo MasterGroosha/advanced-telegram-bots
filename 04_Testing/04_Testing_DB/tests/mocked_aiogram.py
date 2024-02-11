@@ -1,6 +1,7 @@
 """
 This file is taken from
 https://github.com/aiogram/aiogram/blob/dev-3.x/tests/mocked_bot.py
+(commit 74e00a30b12a2adb47237079bb554f15755ec604)
 with slight modifications
 """
 
