@@ -15,7 +15,7 @@ async def main():
     bot = Bot(token=settings.bot_token.get_secret_value())
 
     print("Starting polling...")
-    await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+    await dp.start_polling(bot)
 
 
 if __name__ == '__main__':
