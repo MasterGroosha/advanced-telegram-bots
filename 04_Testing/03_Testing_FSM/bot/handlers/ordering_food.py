@@ -29,7 +29,7 @@ async def cmd_food(message: Message, state: FSMContext):
         text="Выберите блюдо:",
         reply_markup=make_row_keyboard(available_food_names)
     )
-    # Устанавливаем пользователю состояние "выбирает название"
+    # Установка пользователю состояния "выбирает название"
     await state.set_state(OrderFoodStates.choosing_food_name)
 
 # Этап выбора блюда #
