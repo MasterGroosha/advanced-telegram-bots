@@ -54,19 +54,19 @@ def make_dice_outgoing_message(chat: Chat, is_win: bool) -> Message:
 async def test_dice(dp, bot, is_win: bool, expected_message: str):
     chat = Chat(id=123456, type=ChatType.PRIVATE)
 
-    # Создаём ответное сообщение от Telegram с нужным кубиком
+    # Создание ответного сообщения от Telegram с нужным кубиком
     bot.add_result_for(
         method=SendDice,
         ok=True,
         result=make_dice_outgoing_message(chat=chat, is_win=is_win)
     )
 
-    # Создаём подтверждение от Telegram в ответ на отправку ботом
+    # Создание подтверждение от Telegram в ответ на отправку ботом
     # текстовой реакции на результат
     bot.add_result_for(
         method=SendMessage,
         ok=True,
-        # нас не интересует, что ответит Telegram на этот вызов
+        # result, т.е. то, что ответит Telegram на этот вызов, сейчас не интересно
     )
 
     result = await dp.feed_update(
@@ -74,11 +74,11 @@ async def test_dice(dp, bot, is_win: bool, expected_message: str):
         Update(message=make_incoming_message(chat=chat), update_id=1)
     )
     assert result is not UNHANDLED
-    # Убеждаемся, что первое сообщение, которое отправил бот, был дайс
+    # Проверка, что первым сообщением, которое отправил бот, был дайс
     outgoing_dice_message: TelegramType = bot.get_request()
     assert isinstance(outgoing_dice_message, SendDice)
 
-    # Убеждаемся, что второе сообщение, которое отправил бот, было текстовое
+    # Проверка, что вторым сообщением, которое отправил бот, было текстовое
     # сообщение об успехе
     outgoing_text_message: TelegramType = bot.get_request()
     assert isinstance(outgoing_text_message, SendMessage)

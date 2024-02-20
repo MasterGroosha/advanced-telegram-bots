@@ -41,7 +41,7 @@ async def test_cmd_generate(dp, bot, monkeypatch, raise_exception):
         "bot.handlers.generate_handlers.generate_text",
         override_generate_text
     )
-    # В зависимости от raise_exception возвращаем успех или http 403
+    # В зависимости от raise_exception возвращается успех (http 200) или неуспех (http 403)
     bot.add_result_for(
         method=SendMessage,
         ok=(not raise_exception),
@@ -49,16 +49,16 @@ async def test_cmd_generate(dp, bot, monkeypatch, raise_exception):
         # result сейчас не нужен
     )
 
-    # Отправляем сообщение с командой /generate
+    # Отправка сообщения с командой /generate
     update = await dp.feed_update(
         bot,
         Update(message=make_incoming_message(), update_id=1)
     )
 
-    # Убеждаемся, что сообщение обработано
+    # Проверка, что сообщение обработано
     assert update is not UNHANDLED
-    # Получаем отправленное ботом сообщение
+    # Получение отправленного ботом сообщения
     outgoing_message: TelegramType = bot.get_request()
-    # Проверяем различные свойства этого сообщения
+    # Проверка различных свойств этого сообщения
     assert isinstance(outgoing_message, SendMessage)
     assert outgoing_message.text == "тестовый текст"

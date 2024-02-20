@@ -43,31 +43,31 @@ def make_incoming_callback() -> CallbackQuery:
         chat_instance="22222222222222",
         from_user=User(id=user_id, is_bot=False, first_name="User"),
         data=callback_data,
-        # message необязателен в этом тесте, пропускаем
+        # message необязателен в этом тесте, можно пропустить
     )
 
 
 @pytest.mark.asyncio
 async def test_id_command(dp, bot):
-    # Создаём ответное сообщение от Telegram в ответ на команду /id
+    # Создание ответного сообщения от Telegram в ответ на команду /id
     bot.add_result_for(
         method=SendMessage,
         ok=True,
         # result сейчас не нужен
     )
 
-    # Отправляем сообщение с командой /id
+    # "Отправка" сообщения с командой /id
     update = await dp.feed_update(
         bot,
         Update(message=make_incoming_message(), update_id=1)
     )
 
-    # Убеждаемся, что сообщение обработано
+    # Проверка, что сообщение обработано
     assert update is not UNHANDLED
 
-    # Получаем отправленное ботом сообщение
+    # Получение отправленного ботом сообщения
     outgoing_message: TelegramType = bot.get_request()
-    # Проверяем содержимое: тип, текст, наличие клавиатуры, содержимое клавиатуры
+    # Проверка содержамого: тип, текст, наличие клавиатуры, что внутри клавиатуры
     assert isinstance(outgoing_message, SendMessage)
     assert outgoing_message.text == "Нажмите на кнопку ниже:"
     assert outgoing_message.reply_markup is not None
@@ -80,26 +80,25 @@ async def test_id_command(dp, bot):
 
 @pytest.mark.asyncio
 async def test_myid_callback(dp, bot):
-    # Создаём ответное сообщение от Telegram при ответе на колбэк
+    # Создание ответного сообщения от Telegram при ответе на колбэк
     bot.add_result_for(
         method=AnswerCallbackQuery,
         ok=True
     )
 
-    # Отправляем коллбэк с data = myid
+    # Отправка коллбэка с data = myid
     update = await dp.feed_update(
         bot,
         Update(callback_query=make_incoming_callback(), update_id=1)
     )
 
-    # Убеждаемся, что коллбэк обработан
+    # Проверка, что коллбэк обработан
     assert update is not UNHANDLED
 
-    # Получаем отправленный ботом коллбэк
+    # Получение отправленного ботом коллбэка
     outgoing_callback: TelegramType = bot.get_request()
 
-    # Проверяем содержимое: тип, текст, вид алерта
+    # Проверка содержимого: тип, текст, вид алерта
     assert isinstance(outgoing_callback, AnswerCallbackQuery)
     assert outgoing_callback.text == f"Ваш айди: {user_id}"
     assert outgoing_callback.show_alert in (None, False)
-

@@ -39,19 +39,19 @@ async def test_capybara_cmd(dp, bot, monkeypatch):
         # result сейчас не нужен
     )
 
-    # Отправляем сообщение с командой /capybara
+    # Отправка сообщения с командой /capybara
     update = await dp.feed_update(
         bot,
         Update(message=make_incoming_message(), update_id=1)
     )
 
-    # Убеждаемся, что сообщение обработано
+    # Проверка, что сообщение обработано
     assert update is not UNHANDLED
 
-    # Получаем отправленное ботом сообщение
+    # Получение отправленного ботом сообщения
     outgoing_message: TelegramType = bot.get_request()
-    # Проверяем различные свойства этого сообщения
+    # Проверка различных свойств этого сообщения
     assert isinstance(outgoing_message, SendPhoto)
-    assert outgoing_message.caption == "Вот случайная капибара"
+    assert outgoing_message.caption == "Случайная капибара"
     assert isinstance(outgoing_message.photo, FSInputFile)
     assert outgoing_message.photo.path == '/opt/images/capybara_1.jpg'
