@@ -45,7 +45,7 @@ async def test_calc(
         operation: str,
         expected_text: str
 ):
-    # Подготавливаем нужный стейт и данные с ним
+    # Подготовка нужного стейта и данных с ним
     fsm_context: FSMContext = dp.fsm.get_context(bot=bot, user_id=user_id, chat_id=user_id)
     await fsm_context.set_state(CalculatorStates.choosing_operation)
     await fsm_context.set_data({"num1": num1, "num2": num2})
@@ -64,9 +64,11 @@ async def test_calc(
         )
     )
 
-    # Получаем отправленное ботом сообщение
+    # Получение отправленного ботом сообщения
     outgoing_message: TelegramType = bot.get_request()
+    # Проверка типа сообщения
     assert isinstance(outgoing_message, SendMessage)
+    # Дополнительные проверки содержимого сообщения
     assert outgoing_message.text == expected_text
     assert outgoing_message.reply_markup is not None
     assert outgoing_message.reply_markup.remove_keyboard is True

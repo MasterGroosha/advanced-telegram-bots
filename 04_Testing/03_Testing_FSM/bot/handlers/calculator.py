@@ -74,15 +74,15 @@ async def nums_incorrect(message: Message):
 
 
 @router.message(
-    CalculatorStates.choosing_operation,
-    F.text.in_({"+", "-", "*", "/"}),
-    F.text.as_("operation")
+    CalculatorStates.choosing_operation,  # стейт "выбор мат. операции"
+    F.text.in_({"+", "-", "*", "/"}),     # проверка, что символ операции выбран верно
+    F.text.as_("operation")               # помещение текста сообщения в переменную operation
 )
 async def operation_chosen_correctly(message: Message, state: FSMContext, operation: str):
     data = await state.get_data()
-    # Приводим данные к правильным типам, т.к. мы не знаем, какой FSM Storage используется
-    num1 = int(data["num1"])
-    num2 = int(data["num2"])
+    # Приведение данных к правильным типам, т.к. неизвестно, какой FSM Storage используется
+    num1 = int(data["num1"])  # число, введённое на шаге 1
+    num2 = int(data["num2"])  # число, введённое на шаге 2
 
     template = "Ответ: "
 
