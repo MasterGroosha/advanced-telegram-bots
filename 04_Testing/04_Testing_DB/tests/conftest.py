@@ -1,4 +1,3 @@
-import asyncio
 from pathlib import Path
 
 import pytest
@@ -7,11 +6,10 @@ from aiogram import Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 from alembic.command import upgrade, downgrade
 from alembic.config import Config as AlembicConfig
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
-
 from bot.config_reader import parse_settings, Settings
 from bot.handlers import get_routers
 from bot.middlewares import DbSessionMiddleware
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from tests.mocked_aiogram import MockedBot, MockedSession
 
 
