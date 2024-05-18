@@ -8,3 +8,6 @@
 /04_Testing/04_Testing_DB/venv/
 /04_Testing/04_Testing_DB/settings.yml
 /04_Testing/04_Testing_DB/.pytest_cache
+/08_Databases/01-sqlalchemy-core/docker-compose.yml
+/08_Databases/01-sqlalchemy-core/config.yml
+/08_Databases/01-sqlalchemy-core/venv/
