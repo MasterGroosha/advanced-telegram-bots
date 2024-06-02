@@ -1,13 +1,16 @@
-version: '2.2'
+name: "advanced-tg-bots-testing-db"
 
 services:
   db:
-    image: postgres:16
+    image: postgres:16-alpine
     restart: "no"
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
     volumes:
-      - "/tmp/pg_data:/var/lib/postgresql/data"
+      - "advanced-tg-bots-testing-db-postgres:/var/lib/postgresql/data"
     network_mode: host
+
+volumes:
+  advanced-tg-bots-testing-db-postgres:
