@@ -1,3 +1,4 @@
+import asyncio
 from pathlib import Path
 
 import pytest
@@ -73,3 +74,14 @@ def create(engine, alembic_config: AlembicConfig):
 async def session(engine, create):
     async with AsyncSession(engine) as s:
         yield s
+
+
+# Если pytest ругается на event loop, раскомментируйте эту фикстуру
+# @pytest.fixture(scope="session")
+# def event_loop():
+#     try:
+#         return asyncio.get_running_loop()
+#     except RuntimeError:
+#         loop = asyncio.new_event_loop()
+#         asyncio.set_event_loop(loop)
+#         return loop
