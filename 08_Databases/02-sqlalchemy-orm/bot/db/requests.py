@@ -14,6 +14,14 @@ async def upsert_user(
     first_name: str,
     last_name: str | None = None,
 ):
+    """
+    Добавление или обновление пользователя
+    в таблице users
+    :param session: сессия СУБД
+    :param telegram_id: айди пользователя
+    :param first_name: имя пользователя
+    :param last_name: фамилия пользователя
+    """
     stmt = upsert(User).values(
         {
             "telegram_id": telegram_id,
@@ -37,6 +45,12 @@ async def add_score(
     telegram_id: int,
     score: int,
 ):
+    """
+    Добавление записи об игровой сессии пользователя
+    :param session: сессия СУБД
+    :param telegram_id: айди пользователя
+    :param score: счёт пользователя
+    """
     new_game = Game(
         user_id=telegram_id,
         score=score,
@@ -49,6 +63,12 @@ async def get_total_score_for_user(
     session: AsyncSession,
     telegram_id: int,
 ) -> int:
+    """
+    Возвращает сумму очков для заданного игрока
+    :param session: сессия СУБД
+    :param telegram_id: айди пользователя в Telegram
+    :return: сумма очков пользователя, число
+    """
     user = await session.get(
         User, {"telegram_id": telegram_id},
         options=[selectinload(User.games)]
@@ -60,6 +80,12 @@ async def get_last_games(
     session: AsyncSession,
     number_of_games: int,
 ) -> list[Game]:
+    """
+    Получение N последних игр всех пользователей
+    :param session: сессия СУБД
+    :param number_of_games: количество игр
+    :return: требуемое количество объектов Game (может быть меньше запрашиваемого)
+    """
     stmt = (
         select(Game)
         .order_by(Game.created_at.desc())
