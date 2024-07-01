@@ -15,7 +15,7 @@ router = Router(name="commands router")
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
-    await message.answer("Hello")
+    await message.answer("Привет! Нажми /play и играй!")
 
 
 @router.message(Command("play"))
