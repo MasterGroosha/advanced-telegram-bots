@@ -11,3 +11,5 @@
 /08_Databases/01-sqlalchemy-core/docker-compose.yml
 /08_Databases/01-sqlalchemy-core/config.yml
 /08_Databases/01-sqlalchemy-core/venv/
+/08_Databases/02-sqlalchemy-orm/config.yml
+/08_Databases/02-sqlalchemy-orm/venv/

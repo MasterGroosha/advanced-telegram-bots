@@ -1,0 +1,36 @@
+name: "advanced-course-sqlalchemy-orm"
+
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    # поскольку это тестовый стенд, то не перезагружаем автоматически
+    restart: "no"
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      # логин и пароль первого (супер)пользователя, а также название БД
+      POSTGRES_USER: superuser
+      POSTGRES_PASSWORD: superpassword
+      POSTGRES_DB: data
+    volumes:
+      - "advanced-course-sqlalchemy-orm-postgres:/var/lib/postgresql/data"
+
+  pgadmin:
+    image: dpage/pgadmin4:8.9
+    # поскольку это тестовый стенд, то не перезагружаем автоматически
+    restart: "no"
+    ports:
+      - "127.0.0.1:8080:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: a@a.com
+      PGADMIN_DEFAULT_PASSWORD: pgadmin
+    volumes:
+      - "advanced-course-sqlalchemy-orm-pgadmin:/var/lib/pgadmin"
+    depends_on:
+      - postgres
+
+
+volumes:
+  advanced-course-sqlalchemy-orm-postgres:
+  advanced-course-sqlalchemy-orm-pgadmin:
