@@ -32,8 +32,10 @@ async def main():
         # await connection.run_sync(Base.metadata.drop_all)
         await connection.run_sync(Base.metadata.create_all)
 
+    bot_config = get_config(BotConfig, "bot")
+
     # Создание диспетчера
-    dp = Dispatcher(db_engine=engine)
+    dp = Dispatcher(admin_id=bot_config.admin_id)
 
     # Подключение мидлварей
     Sessionmaker = async_sessionmaker(engine, expire_on_commit=False)
@@ -41,8 +43,6 @@ async def main():
     dp.message.outer_middleware(TrackAllUsersMiddleware())
 
     dp.include_routers(*get_routers())
-
-    bot_config = get_config(BotConfig, "bot")
     bot = Bot(token=bot_config.token.get_secret_value())
 
     print("Starting polling...")

@@ -7,10 +7,8 @@ from aiogram.types import Message
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from bot.db.requests import (
-    add_score, get_total_score_for_user,
-    get_last_games
+    add_score, get_total_score_for_user
 )
-
 
 router = Router(name="commands router")
 
@@ -48,20 +46,4 @@ async def cmd_stats(
     )
 
 
-@router.message(Command("last3"))
-async def cmd_last3(
-    message: Message,
-    session: AsyncSession,
-):
-    games = await get_last_games(
-        session=session,
-        number_of_games=3
-    )
-    result = [
-        "Последние 3 игры:\n"
-    ]
-    for game in games:
-        result.append(
-            f"{game.user.first_name} набрал(а) {game.score} очк."
-        )
-    await message.answer("\n".join(result))
+

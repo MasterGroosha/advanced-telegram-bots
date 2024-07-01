@@ -15,6 +15,7 @@ ConfigType = TypeVar("ConfigType", bound=BaseModel)
 
 class BotConfig(BaseModel):
     token: SecretStr
+    admin_id: int
 
 
 class DbConfig(BaseModel):
