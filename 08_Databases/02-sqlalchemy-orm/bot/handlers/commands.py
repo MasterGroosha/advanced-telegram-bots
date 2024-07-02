@@ -44,6 +44,3 @@ async def cmd_stats(
         f"Привет, {message.from_user.first_name}! "
         f"Твой суммарный счёт: {total_score}"
     )
-
-
-
