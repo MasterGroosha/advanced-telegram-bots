@@ -14,3 +14,4 @@
 /08_Databases/02-sqlalchemy-orm/config.yml
 /08_Databases/02-sqlalchemy-orm/venv/
 /08_Databases/03-alembic/before_alembic/config.yml
+/08_Databases/03-alembic/first_migration/config.yml
