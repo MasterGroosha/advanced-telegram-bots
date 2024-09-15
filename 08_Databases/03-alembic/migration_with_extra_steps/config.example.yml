@@ -1,0 +1,12 @@
+bot:
+  # Токен бота, можно получить у @BotFather
+  token: "1234567890:AaBbCcDdEeFfGrOoShALlMmNnOoPpQqRrSs"
+
+db:
+  # Строка подключения к базе данных.
+  # Ниже заполненный пример, если используете Docker Compose файл из каталога
+  dsn: "postgresql+psycopg://superuser:superpassword@127.0.0.1/data"
+  # Если указать true, то при создании движка параметр "echo" будет True,
+  # что приведёт к выводу на экран расширенной информации о взаимодействии
+  # SQLAlchemy и базы данных. В противном случае укажите false
+  is_echo: true
