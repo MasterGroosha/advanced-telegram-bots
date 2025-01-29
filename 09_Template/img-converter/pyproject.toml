@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "img-converter"
+version = "0.1.0"
+description = ""
+license = "MIT"
+authors = [""]
+packages = [{include = "img_converter"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+faststream = "^0.5.25"
+pillow = "^10.4.0"
+nats-py = "^2.9.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

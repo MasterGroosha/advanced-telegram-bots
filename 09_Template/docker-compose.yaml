@@ -1,0 +1,77 @@
+# Profiles
+# 1) all - runs all
+# 2) without_bot - all but without bot
+# 3) infrastructure - run only infrastructure
+#
+# Usage `docker compose --profile all up`
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["poetry", "run", "python", "app.py"]
+    depends_on:
+      - worker
+    profiles:
+      - all
+
+  worker:
+    build:
+      context: ./img-converter/
+      dockerfile: Dockerfile
+    command: ["poetry", "run", "python", "app.py"]
+    environment:
+      NATS_URL: "nats://nats:4222"
+    depends_on:
+      - nats
+    profiles:
+      - without_bot
+      - all
+
+  nats-migrate:
+    build:
+      context: ./nats/
+      dockerfile: Dockerfile
+    command: ["poetry", "run", "python", "migration.py"]
+    restart: no
+    environment:
+      NATS_URL: "nats://nats:4222"
+    volumes:
+      - ./nats/data:/data
+      - ./nats/nats.conf:/config/nats.conf
+    depends_on:
+      - nats
+    profiles:
+      - without_bot
+      - infrastructure
+      - all
+
+  nats:
+    image: nats:2.10.22
+    restart: on-failure
+    entrypoint: /nats-server
+    command: "-c /config/nats.conf"
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    volumes:
+      - ./nats/data:/data
+      - ./nats/nats.conf:/config/nats.conf
+    profiles:
+      - without_bot
+      - infrastructure
+      - all
+
+  postgres:
+    image: 'postgres:17.2'
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: bot
+    profiles:
+      - without_bot
+      - infrastructure
+      - all

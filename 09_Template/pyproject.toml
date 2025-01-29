@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "aiogram-gdk-course"
+version = "0.1.0"
+description = ""
+authors = [""]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "aiogram_template"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+dynaconf = "^3.2.1"
+fluentogram = "^1.1.6"
+pathvalidate = "^3.1.0"
+greenlet = "^3.0.3"
+alembic = "^1.11.1"
+aiogram = "^3.4.1"
+structlog = "^24.1.0"
+ujson = "^5.9.0"
+nats-py = "^2.7.0"
+aiogram-dialog = "2.2.0a3"
+asyncpg = "^0.29.0"
+sqlalchemy = "^2.0.27"
+pyrate-limiter = "^3.2.1"
+pyinstrument = "^4.6.2"
+orjson = "^3.9.15"
+rich = "^13.7.0"
+faststream = "^0.5.28"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
