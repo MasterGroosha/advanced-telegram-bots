@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "nats-migration"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "nats_migration"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+nats-py = "^2.9.0"
+structlog = "^24.4.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
