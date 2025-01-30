@@ -19,7 +19,6 @@ All services in single git repository, monorepository. That's for compact view. 
 - `cd aiogram-gdk-course-example`
 - fill `secrets.toml.example` and rename to `.secrets.toml`, for Linux `mv secrets.toml.example .secrets.toml`
 - also set environment variables as described in readme files of services
-- download font into img-converter and rename to `font.otf`
 - run `docker-compose --profile=infrastructure up`, profiles in `docker-compose.yaml` file
 
 ## Bot
