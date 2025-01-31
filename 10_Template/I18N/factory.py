@@ -9,12 +9,16 @@ def i18n_factory() -> TranslatorHub:
         {'ru': ('ru', 'en'), 'en': 'en'},
         [
             FluentTranslator(
-                'ru',
-                translator=FluentBundle.from_files('ru', filenames=[f'{DIR_PATH}/ru.ftl']),
+                locale='ru',
+                translator=FluentBundle.from_files(
+                    locale='ru', 
+                    filenames=[f'{DIR_PATH}/ru/LC_MESSAGES/txt.ftl']),
             ),
             FluentTranslator(
-                'en',
-                translator=FluentBundle.from_files('en', filenames=[f'{DIR_PATH}/en.ftl']),
+                locale='en',
+                translator=FluentBundle.from_files(
+                    locale='en', 
+                    filenames=[f'{DIR_PATH}/en/LC_MESSAGES/txt.ftl']),
             ),
         ],
         root_locale='en',
