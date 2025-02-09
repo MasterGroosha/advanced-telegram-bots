@@ -62,7 +62,6 @@ async def handler(task: Task, logger: Logger, msg: NatsMessage):
         font = ImageFont.truetype("font.otf", size=fontsize)
         if jumpsize <= 2:
             break
-
     draw = ImageDraw.Draw(image)
     draw.text(position, task.watermark, font=font, fill=(240, 10, 10), anchor="mm", align="center")
     export_buf = io.BytesIO()
