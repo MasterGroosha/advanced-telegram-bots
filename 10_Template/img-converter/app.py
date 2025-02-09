@@ -45,7 +45,23 @@ async def handler(task: Task, logger: Logger, msg: NatsMessage):
     image = Image.open(io.BytesIO(buf.getbuffer()))
     width, height = image.size
     position = (width / 2, height / 2)
-    font = ImageFont.truetype("font.otf", size=width // 8)
+    img_fraction = 0.80
+    breakpoint = width * img_fraction
+    jumpsize = 50
+    fontsize = 10
+    font = ImageFont.truetype("font.otf", size=fontsize)
+
+    while True:
+        size = font.getbbox(task.watermark)
+        width = size[2]-size[0]
+        if width < breakpoint:
+            fontsize += jumpsize
+        else:
+            jumpsize = jumpsize // 2
+            fontsize -= jumpsize
+        font = ImageFont.truetype("font.otf", size=fontsize)
+        if jumpsize <= 2:
+            break
     draw = ImageDraw.Draw(image)
     draw.text(position, task.watermark, font=font, fill=(240, 10, 10), anchor="mm", align="center")
     export_buf = io.BytesIO()
