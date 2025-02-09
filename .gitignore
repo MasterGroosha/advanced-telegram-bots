@@ -1,3 +1,6 @@
+.DS_Store/
+venv/
+.venv/
 /.idea
 /04_Testing/02_Testing_handlers/venv/
 /04_Testing/02_Testing_handlers/settings.yml
