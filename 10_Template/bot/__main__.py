@@ -26,7 +26,7 @@ def bot_factory(config: BotConfig) -> Bot:
     )
 
 
-async def dispatcher_factory(kv_states: KeyValue, kv_data: KeyValue) -> Dispatcher:
+def get_dispatcher(kv_states: KeyValue, kv_data: KeyValue) -> Dispatcher:
     return Dispatcher(
         storage=NATSFSMStorage(
             kv_states, kv_data, serializer=orjson.dumps, deserializer=orjson.loads
@@ -37,8 +37,6 @@ async def main(
     config: BotConfig,
     nats_address: str,
     session_maker,
-    _bot_factory: Callable[[BotConfig], Bot] = bot_factory,
-    _dispatcher_factory: Callable[[KeyValue, KeyValue], Awaitable[Dispatcher]] = dispatcher_factory,
     _i18n_factory: Callable[[], TranslatorHub] = i18n_factory,
 ) -> None:
     logger = structlog.get_logger(__name__)
@@ -47,12 +45,13 @@ async def main(
     js = nc.jetstream()
     await logger.debug('NATS connection established')
 
-    bot = _bot_factory(config)
+    bot = bot_factory(config)
     kv_states = await js.key_value(config.fsm.states_bucket)
     kv_data = await js.key_value(config.fsm.data_bucket)
     await logger.debug('Bot and KV FSM buckets initialized')
 
-    dp = await schema.assemble(_dispatcher_factory(kv_states, kv_data))
+    dp: Dispatcher = get_dispatcher(kv_states, kv_data)
+    await schema.assemble(dp)
     
     bot_representation = await bot.me()
     await logger.info(f'Bot {bot_representation.first_name} is ready to serve requests')
