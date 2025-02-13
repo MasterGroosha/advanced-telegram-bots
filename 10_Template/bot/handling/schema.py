@@ -21,9 +21,8 @@ logger = structlog.getLogger('schema')
 
 
 async def assemble(
-        dispatcher_factory: Awaitable[Dispatcher]
+        dp: Dispatcher,
 ) -> Dispatcher:
-    dp = await dispatcher_factory
     setup_dialogs(dp)
     dp.update.middleware(LoggingMiddleware())
     t = TranslatorRunnerMiddleware()
